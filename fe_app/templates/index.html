@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Fe: Creer para Crecer{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Bienvenido a Fe: Creer para Crecer</h1>
+        <p>Selecciona un libro de la Biblia para comenzar a leer:</p>
+    </header>
+
+    <main>
+        <section id="book-selection">
+            <label for="book-select">Libro:</label>
+            <select id="book-select">
+                <option value="" disabled selected>Selecciona un libro</option>
+            </select>
+        </section>
+
+        <section id="chapter-selection">
+            <label for="chapter-select">Capítulo:</label>
+            <select id="chapter-select">
+                <option value="" disabled selected>Selecciona un capítulo</option>
+            </select>
+        </section>
+
+        <section id="verses-display">
+            <div id="verses-container">
+                </div>
+        </section>
+
+        <section id="chapter-navigation">
+            <div id="chapter-nav-buttons">
+                <button id="prev-chapter-btn" disabled>Capítulo Anterior</button>
+                <button id="next-chapter-btn">Capítulo Siguiente</button>
+            </div>
+        </section>
+    </main>
+
+    <section id="ai-conversation">
+        <h2>Conversa con una IA</h2>
+        <div id="chat-area">
+            </div>
+        <div id="input-area">
+            <select id="character-select">
+                <option value="default" disabled selected>Selecciona un personaje</option>
+                </select>
+            <textarea id="user-input" placeholder="Escribe tu pregunta..."></textarea>
+            <button id="send-button">Enviar</button>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

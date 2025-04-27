@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio de Sesión - Fe: Creer para Crecer{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Inicio de Sesión</h2>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Nombre de Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <p class="message" id="response-message"></p>
+         <div class="links">
+            ¿No tienes una cuenta? <a href="{{ url_for('auth.register') }}">Regístrate aquí</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const responseMessage = document.getElementById('response-message');
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                responseMessage.textContent = '';
+                responseMessage.style.color = 'red';
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                         headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+                        body: new URLSearchParams(formData).toString()
+                    });
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        const result = await response.json();
+                        responseMessage.textContent = result.message;
+                        responseMessage.style.color = 'red';
+                    }
+                } catch (error) {
+                    console.error('Error en la solicitud de login:', error);
+                    responseMessage.textContent = 'Hubo un error al procesar tu inicio de sesión. Inténtalo de nuevo.';
+                    responseMessage.style.color = 'red';
+                }
+            });
+        });
+    </script>
+{% endblock %}

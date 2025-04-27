@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fe: Creer para Crecer{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_content %}{% endblock %}
+</head>
+<body>
+
+    {# <nav>...</nav> #}
+    {% block content %}{% endblock %}
+
+    <footer>
+        <p>&copy; {{ current_year }} Fe: Creer para Crecer. Todos los derechos reservados.</p>
+    </footer>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
